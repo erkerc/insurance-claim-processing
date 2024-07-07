@@ -62,6 +62,11 @@ spec:
               value: '3000'
             - name: HOSTNAME
               value: '0.0.0.0'
+            - name: HUGGING_FACE_HUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: hftoken
+                  key: token
           securityContext:
             capabilities:
               drop:
@@ -91,7 +96,16 @@ spec:
             - name: shm
               mountPath: /dev/shm
           terminationMessagePolicy: File
-          image: 'ghcr.io/huggingface/text-generation-inference:1.4'
+          image: 'quay.io/rh-aiservices-bu/vllm-openai-ubi9:0.4.2'
+          args:
+            - '--model'
+            - mistralai/Mistral-7B-Instruct-v0.2
+            - '--download-dir'
+            - /models-cache
+            - '--dtype'
+            - float16
+            - '--max-model-len'
+            - '6144'
       volumes:
         - name: models-cache
           persistentVolumeClaim:
