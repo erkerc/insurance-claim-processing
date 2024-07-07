@@ -59,7 +59,7 @@ spec:
             - name: HUGGINGFACE_HUB_CACHE
               value: /models-cache
             - name: PORT
-              value: '3000'
+              value: '8000'
             - name: HOSTNAME
               value: '0.0.0.0'
             - name: HUGGING_FACE_HUB_TOKEN
